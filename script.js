@@ -24,12 +24,42 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+async function appendProducts() {
+  const products = await fetchProducts('computador');
+  await products.forEach(({ id, title, thumbnail }) => {
+    document.querySelector('.items')
+    .appendChild(createProductItemElement({
+       sku: id, name: title, image: thumbnail,
+      }));
+  });
+}
+// const fetchProducts = (a) => {
+//   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${a}`)
+//   .then((primeiro) => primeiro.json())
+//   .then((segundo) => segundo.results)
+//   .catch((error) => error);
+// };
+
+// async function appendProducts() {
+//   await fetchProducts('computador')
+//    .then((response) => response.forEach(({ id, title, thumbnail }) => {
+//      document.querySelector('.items')
+//      .appendChild(createProductItemElement({
+//         sku: id, name: title, image: thumbnail,
+//        }));
+//    }))
+//    .catch((error) => error);
+//  }
+
+// Vai pegar cada produto e jogar na tela!! 
+ 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
+event.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -39,5 +69,15 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+// Colocar do lado os items selecionados!! 
+async function appendCart(produto) {
+  const data = await fetchItem(produto);
+ const { id, title, price } = data;
+ document.querySelector('.cart__items')
+ .appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
+}
 
-window.onload = () => { };
+window.onload = () => {
+  appendProducts();
+  appendCart('MLB1341706310');
+};
