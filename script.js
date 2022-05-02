@@ -1,5 +1,4 @@
 const carrinho = document.querySelector('.cart__items');
-
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.remove();
@@ -22,6 +21,11 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+// const somaValores = async () => {
+// const valores = document.querySelectorAll('.cart__items');
+
+// };
+
 // Colocar do lado os items selecionados!!
 async function appendCart(produto) {
   // vai pegar as informacoes tudo
@@ -35,7 +39,8 @@ async function appendCart(produto) {
     .appendChild(
       createCartItemElement({ sku: id, name: title, salePrice: price }),
     );
-    saveCartItems(carrinho.innerHTML);
+  saveCartItems(carrinho.innerHTML);
+  // somaValores();
 }
 
 function createProductImageElement(imageSource) {
@@ -53,13 +58,14 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({ sku, name, image }) {
+function createProductItemElement({ sku, name, image, price }) {
   const section = document.createElement('section');
   section.className = 'item';
 
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
+  section.appendChild(createCustomElement('p', 'item__price', price));
   section.appendChild(
     createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'),
   );
@@ -70,19 +76,29 @@ function createProductItemElement({ sku, name, image }) {
 // Vai pegar cada produto e jogar na tela!!
 async function appendProducts() {
   const products = await fetchProducts('computador');
-  await products.forEach(({ id, title, thumbnail }) => {
+  await products.forEach(({ id, title, thumbnail, price }) => {
     document.querySelector('.items').appendChild(
       createProductItemElement({
         sku: id,
         name: title,
         image: thumbnail,
+        price,
       }),
     );
   });
 }
 
+// async function somaValores() {
+// const produtos = document.querySelectorAll('.cart__item');
+
+// }
+
 window.onload = () => {
   appendProducts();
   // appendCart('MLB1341706310');
   getSavedCartItems();
+  document
+    .querySelectorAll('.cart__item')
+    .forEach((element) =>
+      element.addEventListener('click', cartItemClickListener));
 };
