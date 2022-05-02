@@ -78,12 +78,10 @@ async function appendCart(produto) {
   const salvar = document.querySelector('.cart__items')
  .appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
  saveCartItems(salvar.innerHTML);
-
 }
 
 window.onload = () => {
   appendProducts();
   appendCart('MLB1341706310');
 getSavedCartItems();
-
 };
