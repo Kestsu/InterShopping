@@ -1,6 +1,8 @@
 const sectionCart = document.querySelector('.cart');
 const total = document.createElement('h3');
+total.classList.add('.total-price');
 const carrinho = document.querySelector('.cart__items');
+const esvaziar = document.querySelector('.empty-cart');
 
 // Vai somar os valores
 function somaValores() {
@@ -51,24 +53,24 @@ async function appendCart(produto) {
   const data = await fetchItem(idSku);
   const { id, title, price } = data;
   document
-    .querySelector('.cart__items')
-    .appendChild(
-      createCartItemElement({ sku: id, name: title, salePrice: price }),
+  .querySelector('.cart__items')
+  .appendChild(
+    createCartItemElement({ sku: id, name: title, salePrice: price }),
     );
-  saveCartItems(carrinho.innerHTML);
-  nota(somaValores());
-}
-
-function createProductImageElement(imageSource) {
-  const img = document.createElement('img');
-  img.className = 'item__image';
-  img.src = imageSource;
-  return img;
-}
-
-function createCustomElement(element, className, innerText) {
-  const e = document.createElement(element);
-  e.className = className;
+    saveCartItems(carrinho.innerHTML);
+    nota(somaValores());
+  }
+  
+  function createProductImageElement(imageSource) {
+    const img = document.createElement('img');
+    img.className = 'item__image';
+    img.src = imageSource;
+    return img;
+  }
+  
+  function createCustomElement(element, className, innerText) {
+    const e = document.createElement(element);
+    e.className = className;
   e.innerText = innerText;
   if (element === 'button') e.addEventListener('click', appendCart);
   return e;
@@ -77,40 +79,46 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image, price }) {
   const section = document.createElement('section');
   section.className = 'item';
-
+  
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('p', 'item__price', price));
   section.appendChild(
     createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'),
-  );
-
-  return section;
-}
-
-// Vai pegar cada produto e jogar na tela!!
-async function appendProducts() {
-  const products = await fetchProducts('computador');
-  await products.forEach(({ id, title, thumbnail, price }) => {
-    document.querySelector('.items').appendChild(
-      createProductItemElement({
-        sku: id,
-        name: title,
-        image: thumbnail,
-        price,
-      }),
     );
-  });
-}
-
-window.onload = () => {
-  appendProducts();
-  // appendCart('MLB1341706310');
-  getSavedCartItems();
-  document
-    .querySelectorAll('.cart__item')
-    .forEach((element) =>
+    
+    return section;
+  }
+  
+  // Vai pegar cada produto e jogar na tela!!
+  async function appendProducts() {
+    const products = await fetchProducts('computador');
+    await products.forEach(({ id, title, thumbnail, price }) => {
+      document.querySelector('.items').appendChild(
+        createProductItemElement({
+          sku: id,
+          name: title,
+          image: thumbnail,
+          price,
+        }),
+        );
+      });
+    }
+    
+    function clear() {
+      carrinho.innerHTML = ' ';
+      saveCartItems(carrinho.innerHTML);
+    }
+    esvaziar.addEventListener('click', clear);
+    
+    window.onload = () => {
+      appendProducts();
+      // appendCart('MLB1341706310');
+      getSavedCartItems();
+      document
+      .querySelectorAll('.cart__item')
+      .forEach((element) =>
       element.addEventListener('click', cartItemClickListener));
       nota(somaValores());
-};
+    };
