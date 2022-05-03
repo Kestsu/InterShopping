@@ -16,26 +16,25 @@ function somaValores() {
   return soma;
 }
 
-// Vai escrever no total
-function nota(valor) {
+// Vai escrever no total!
+async function nota(valor) {
   total.innerText = `Total: ${valor}`;
   sectionCart.appendChild(total);
 }
+// Vai apagar/Atualizar o localStorage/ Vai somar novamente!
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.remove();
-  // console.log(event.target);
-  // localStorage.removeItem('produtos');
   saveCartItems(carrinho.innerHTML);
   nota(somaValores());
 }
-
+// Vai criar a li do carrinho!!
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  // Adicionei o click de romover
   li.addEventListener('click', cartItemClickListener);
-  // document.querySelectorAll('.cart__item').addEventListener('click', cartItemClickListener);
   return li;
 }
 
@@ -57,7 +56,9 @@ async function appendCart(produto) {
   .appendChild(
     createCartItemElement({ sku: id, name: title, salePrice: price }),
     );
+    // Vai atualizar o localStorage
     saveCartItems(carrinho.innerHTML);
+    // Vai atualizar o total
     nota(somaValores());
   }
   
@@ -105,7 +106,7 @@ function createProductItemElement({ sku, name, image, price }) {
         );
       });
     }
-    
+    // Vai limpar o carrinho quando apertar em esvaziar carrinho!!
     function clear() {
       carrinho.innerHTML = ' ';
       saveCartItems(carrinho.innerHTML);
@@ -113,12 +114,16 @@ function createProductItemElement({ sku, name, image, price }) {
     esvaziar.addEventListener('click', clear);
     
     window.onload = () => {
+      // Vai colocar na tela os produtos
       appendProducts();
       // appendCart('MLB1341706310');
+      // Vai trazer de volta o que esta no localStorage
       getSavedCartItems();
+      // Vai adicionar de volta a possibilidade de apagar as coisas do carrinho
       document
       .querySelectorAll('.cart__item')
       .forEach((element) =>
       element.addEventListener('click', cartItemClickListener));
+      // Vai somar os valores novamente
       nota(somaValores());
     };
