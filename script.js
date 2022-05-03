@@ -1,5 +1,6 @@
 const sectionCart = document.querySelector('.cart');
 const total = document.createElement('h3');
+total.classList.add('total-price');
 const carrinho = document.querySelector('.cart__items');
 const esvaziar = document.querySelector('.empty-cart');
 
@@ -138,6 +139,5 @@ window.onload = () => {
     .forEach((element) =>
       element.addEventListener('click', cartItemClickListener));
   // Vai somar os valores novamente
-total.classList.add('total-price');
   nota(somaValores());
 };
