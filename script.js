@@ -4,6 +4,7 @@ total.classList.add('.total-price');
 const carrinho = document.querySelector('.cart__items');
 const esvaziar = document.querySelector('.empty-cart');
 
+// Vai colocar o carregando na tela
 function carregando() {
   const li = document.createElement('h1');
   li.className = 'loading';
@@ -11,6 +12,7 @@ function carregando() {
   document.querySelector('.items').appendChild(li);
 }
 carregando();
+// Vai remover o carregando
 function removerCarregando() {
   document.querySelector('.items').innerHTML = ' ';
 }
@@ -62,26 +64,26 @@ async function appendCart(produto) {
   const data = await fetchItem(idSku);
   const { id, title, price } = data;
   document
-  .querySelector('.cart__items')
-  .appendChild(
-    createCartItemElement({ sku: id, name: title, salePrice: price }),
+    .querySelector('.cart__items')
+    .appendChild(
+      createCartItemElement({ sku: id, name: title, salePrice: price }),
     );
-    // Vai atualizar o localStorage
-    saveCartItems(carrinho.innerHTML);
-    // Vai atualizar o total
-    nota(somaValores());
-  }
-  
-  function createProductImageElement(imageSource) {
-    const img = document.createElement('img');
-    img.className = 'item__image';
-    img.src = imageSource;
-    return img;
-  }
-  
-  function createCustomElement(element, className, innerText) {
-    const e = document.createElement(element);
-    e.className = className;
+  // Vai atualizar o localStorage
+  saveCartItems(carrinho.innerHTML);
+  // Vai atualizar o total
+  nota(somaValores());
+}
+
+function createProductImageElement(imageSource) {
+  const img = document.createElement('img');
+  img.className = 'item__image';
+  img.src = imageSource;
+  return img;
+}
+
+function createCustomElement(element, className, innerText) {
+  const e = document.createElement(element);
+  e.className = className;
   e.innerText = innerText;
   if (element === 'button') e.addEventListener('click', appendCart);
   return e;
@@ -90,51 +92,51 @@ async function appendCart(produto) {
 function createProductItemElement({ sku, name, image, price }) {
   const section = document.createElement('section');
   section.className = 'item';
-  
+
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('p', 'item__price', price));
   section.appendChild(
     createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'),
+  );
+
+  return section;
+}
+
+// Vai pegar cada produto e jogar na tela!!
+async function appendProducts() {
+  const products = await fetchProducts('computador');
+  removerCarregando();
+  await products.forEach(({ id, title, thumbnail, price }) => {
+    document.querySelector('.items').appendChild(
+      createProductItemElement({
+        sku: id,
+        name: title,
+        image: thumbnail,
+        price,
+      }),
     );
-    
-    return section;
-  }
-  
-  // Vai pegar cada produto e jogar na tela!!
-  async function appendProducts() {
-    const products = await fetchProducts('computador');
-    removerCarregando();
-    await products.forEach(({ id, title, thumbnail, price }) => {
-      document.querySelector('.items').appendChild(
-        createProductItemElement({
-          sku: id,
-          name: title,
-          image: thumbnail,
-          price,
-        }),
-        );
-      });
-    }
-    // Vai limpar o carrinho quando apertar em esvaziar carrinho!!
-    function clear() {
-      carrinho.innerHTML = ' ';
-      saveCartItems(carrinho.innerHTML);
-    }
-    esvaziar.addEventListener('click', clear);
-    
-    window.onload = () => {
-      // Vai colocar na tela os produtos
-      appendProducts();
-      // appendCart('MLB1341706310');
-      // Vai trazer de volta o que esta no localStorage
-      getSavedCartItems();
-      // Vai adicionar de volta a possibilidade de apagar as coisas do carrinho
-      document
-      .querySelectorAll('.cart__item')
-      .forEach((element) =>
+  });
+}
+// Vai limpar o carrinho quando apertar em esvaziar carrinho!!
+function clear() {
+  carrinho.innerHTML = ' ';
+  saveCartItems(carrinho.innerHTML);
+}
+esvaziar.addEventListener('click', clear);
+
+window.onload = () => {
+  // Vai colocar na tela os produtos
+  appendProducts();
+  // appendCart('MLB1341706310');
+  // Vai trazer de volta o que esta no localStorage
+  getSavedCartItems();
+  // Vai adicionar de volta a possibilidade de apagar as coisas do carrinho
+  document
+    .querySelectorAll('.cart__item')
+    .forEach((element) =>
       element.addEventListener('click', cartItemClickListener));
-      // Vai somar os valores novamente
-      nota(somaValores());
-    };
+  // Vai somar os valores novamente
+  nota(somaValores());
+};
