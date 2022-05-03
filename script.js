@@ -17,7 +17,7 @@ function somaValores() {
 }
 
 // Vai escrever no total!
-async function nota(valor) {
+function nota(valor) {
   total.innerText = `Total: ${valor}`;
   sectionCart.appendChild(total);
 }
@@ -59,7 +59,7 @@ async function appendCart(produto) {
     // Vai atualizar o localStorage
     saveCartItems(carrinho.innerHTML);
     // Vai atualizar o total
-    nota(somaValores());
+    await nota(somaValores());
   }
   
   function createProductImageElement(imageSource) {
