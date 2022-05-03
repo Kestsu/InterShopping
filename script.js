@@ -29,7 +29,7 @@ function somaValores() {
 
 // Vai escrever no total!
 function nota(valor) {
-  total.innerText = `Total: ${valor}`;
+  total.innerText = valor;
   sectionCart.appendChild(total);
 }
 // Vai apagar/Atualizar o localStorage/ Vai somar novamente!
