@@ -4,6 +4,16 @@ total.classList.add('.total-price');
 const carrinho = document.querySelector('.cart__items');
 const esvaziar = document.querySelector('.empty-cart');
 
+function carregando() {
+  const li = document.createElement('h1');
+  li.className = 'loading';
+  li.innerText = 'carregando...';
+  document.querySelector('.items').appendChild(li);
+}
+carregando();
+function removerCarregando() {
+  document.querySelector('.items').innerHTML = ' ';
+}
 // Vai somar os valores
 function somaValores() {
   let soma = 0;
@@ -59,7 +69,7 @@ async function appendCart(produto) {
     // Vai atualizar o localStorage
     saveCartItems(carrinho.innerHTML);
     // Vai atualizar o total
-    await nota(somaValores());
+    nota(somaValores());
   }
   
   function createProductImageElement(imageSource) {
@@ -95,6 +105,7 @@ function createProductItemElement({ sku, name, image, price }) {
   // Vai pegar cada produto e jogar na tela!!
   async function appendProducts() {
     const products = await fetchProducts('computador');
+    removerCarregando();
     await products.forEach(({ id, title, thumbnail, price }) => {
       document.querySelector('.items').appendChild(
         createProductItemElement({
