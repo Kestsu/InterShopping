@@ -1,10 +1,31 @@
+const sectionCart = document.querySelector('.cart');
+const total = document.createElement('h3');
 const carrinho = document.querySelector('.cart__items');
+
+// Vai somar os valores
+function somaValores() {
+  let soma = 0;
+  const filhos = carrinho.children;
+  for (let i = 0; i < filhos.length; i += 1) {
+    const dados = filhos[i].innerText.split('$')[1];
+    const numero = parseFloat(dados);
+    soma += numero;
+  }
+  return soma;
+}
+
+// Vai escrever no total
+function nota(valor) {
+  total.innerText = `Total: ${valor}`;
+  sectionCart.appendChild(total);
+}
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.remove();
   // console.log(event.target);
   // localStorage.removeItem('produtos');
   saveCartItems(carrinho.innerHTML);
+  nota(somaValores());
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -21,18 +42,13 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-// const somaValores = async () => {
-// const valores = document.querySelectorAll('.cart__items');
-
-// };
-
 // Colocar do lado os items selecionados!!
 async function appendCart(produto) {
-  // vai pegar as informacoes tudo
+  // vai pegar as informacoes tudo( vai pegar a tag )
   const botao = produto.target;
-  // vai pegar o pai (section)) do botao e jogar na funcao
-  const codigo = getSkuFromProductItem(botao.parentElement);
-  const data = await fetchItem(codigo);
+  // vai pegar o pai (section)) do botao (tag ) e jogar na funcao
+  const idSku = getSkuFromProductItem(botao.parentElement);
+  const data = await fetchItem(idSku);
   const { id, title, price } = data;
   document
     .querySelector('.cart__items')
@@ -40,7 +56,7 @@ async function appendCart(produto) {
       createCartItemElement({ sku: id, name: title, salePrice: price }),
     );
   saveCartItems(carrinho.innerHTML);
-  // somaValores();
+  nota(somaValores());
 }
 
 function createProductImageElement(imageSource) {
@@ -88,11 +104,6 @@ async function appendProducts() {
   });
 }
 
-// async function somaValores() {
-// const produtos = document.querySelectorAll('.cart__item');
-
-// }
-
 window.onload = () => {
   appendProducts();
   // appendCart('MLB1341706310');
@@ -101,4 +112,5 @@ window.onload = () => {
     .querySelectorAll('.cart__item')
     .forEach((element) =>
       element.addEventListener('click', cartItemClickListener));
+      nota(somaValores());
 };
