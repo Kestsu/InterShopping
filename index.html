@@ -19,7 +19,18 @@
   <body>
     <header class="header">
       <div class="container-title">
-        <span class="title"><strong>trybe</strong>shopping</span>
+        <span class="title"><strong>Inter</strong>shopping</span>
+        <div class="select-options">
+          <button type="button" class="btn-options btn-celular">Celulares</button>
+          <button type="button" class="btn-options btn-brinquedos">Brinquedos</button>
+          <button type="button" class="btn-options btn-beleza">Beleza</button>
+          <button type="button" class="btn-options btn-roupas">Roupas</button>
+          <button type="button" class="btn-options btn-cameras">Câmeras</button>
+          <label class="label-search">
+            <input type="text" class="search-input" placeholder="Search..." value="casa"></input>
+            <button type="button" class="btn-search">🔎</button>
+          </label>
+        </div>
       </div>
       <i class="material-icons" style="font-size:45px;color:white">shopping_cart</i>
       <div class="container-cartTitle">
@@ -29,8 +40,11 @@
     <section class="container">
       <section class="items"></section>
       <section class="cart">
-        <ol class="cart__items"></ol>
-        <button class="empty-cart">Esvaziar carrinho</button>
+          <ol class="cart__items"></ol>
+          <button class="empty-cart">Esvaziar carrinho</button>
+          <div class="total-pay">
+            <button class="btn-finish" type="button">Finalizar Pedido</button>
+          </div>
       </section>
     </section>
   </body>

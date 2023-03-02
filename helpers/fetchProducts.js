@@ -1,5 +1,4 @@
 const fetchProducts = (a) => 
-  // seu código
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${a}`)
   .then((primeiro) => primeiro.json())
   .then((segundo) => segundo.results)
