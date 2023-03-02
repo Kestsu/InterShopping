@@ -1,13 +1,27 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# InterShopping: Um e-commerce com variadades de produtos e com a possibilidade de pesquisa.
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+## Conhecimento envolvido:
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+- Javascript
+- HTML
+- CSS
+- Lógica de programação
+
+## Execução da aplicação localmente
+
+
+1. Instale as dependências.
+
+```bash
+npm install
+```
+
+2. Execute o Go Live do VScode.
+
+Fica localizado no lado inferior direito do VScode
+
+
+## Caso não tenha o VScode, acesse:
+
+https://code.visualstudio.com/
+
