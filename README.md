@@ -1,4 +1,4 @@
-# InterShopping: Um e-commerce com variadades de produtos e com a possibilidade de pesquisa.
+# InterShopping: Um e-commerce com variadades de produtos e com a possibilidade de pesquisa. (Front-End)
 
 ## Conhecimento envolvido:
 
