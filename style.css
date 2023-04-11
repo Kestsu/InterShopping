@@ -131,8 +131,10 @@ body {
 
 .cart {
   display: flex;
+  flex-direction: column;
+  align-items: space-around;
   flex-basis: 32%;
-  flex-flow: column wrap;
+  /* flex-flow: column wrap; */
   background-color: #f6c7b7;
   border: 1px solid black;
   height: 70vh;
@@ -141,7 +143,11 @@ body {
 
 .cart .cart__items {
   height: 80%;
-  overflow-y: scroll;
+  overflow-y: scroll; 
+}
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #e5b8ad;
 }
 
 .empty-cart {
