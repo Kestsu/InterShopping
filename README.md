@@ -1,5 +1,7 @@
 # InterShopping: Um e-commerce com variadades de produtos e com a possibilidade de pesquisa. (Front-End)
 
+<img src="https://user-images.githubusercontent.com/99990041/231243541-06ea9c55-e14d-4b81-913a-ab0183d32bae.png" width="600px">
+
 ## Conhecimento envolvido:
 
 - Javascript
